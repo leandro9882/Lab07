@@ -2,6 +2,9 @@ package it.polito.tdp.poweroutages;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+
+import it.polito.tdp.poweroutages.FXMLController;
+import it.polito.tdp.poweroutages.model.Model;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,16 +15,22 @@ public class EntryPoint extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
-        
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Scene.fxml"));
+    	Parent root = loader.load();
         Scene scene = new Scene(root);
+         
+        Model model = new Model();
+        FXMLController controller = loader.getController();
+        controller.setModel(model);
+      
         scene.getStylesheets().add("/styles/Styles.css");
         
+       
         stage.setTitle("JavaFX and Maven");
         stage.setScene(scene);
         stage.show();
     }
-
+    
     /**
      * The main() method is ignored in correctly deployed JavaFX application.
      * main() serves only as fallback in case the application can not be
